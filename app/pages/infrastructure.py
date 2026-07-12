@@ -1,9 +1,9 @@
-"""AI Infrastructure: placeholder page, implemented in MS-12."""
+"""AI Infrastructure Explorer: placeholder page, implemented in MS-12."""
 
 from utils.ui import render_placeholder
 
 render_placeholder(
-    title="🖥️ AI Infrastructure",
+    title="🖥️ AI Infrastructure Explorer",
     description=(
         "Interactive view of GPU/CPU/Tensor Core usage, inference vs. training, and cloud deployment notes."
     ),

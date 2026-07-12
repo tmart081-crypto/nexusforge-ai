@@ -15,16 +15,23 @@ st.write(
     "Responsible AI, and AI infrastructure — in a single application."
 )
 
+implemented_count = sum(1 for m in MODULES if m.get("implemented"))
+
 col1, col2, col3 = st.columns(3)
 col1.metric("Modules", len(MODULES))
-col2.metric("Implemented", 1)
+col2.metric("Implemented", implemented_count)
 col3.metric("Pass mark", "70 / 100")
 
 st.divider()
 
-st.subheader("Environment")
+st.subheader("System status")
 device = device_summary()
 st.json(device)
+
+st.divider()
+
+st.subheader("Recent history")
+st.info("No runs yet — analyses from every module will be logged here once History (MS-12) ships.")
 
 st.divider()
 
@@ -36,5 +43,5 @@ for module in MODULES:
 for section, mods in sections.items():
     st.markdown(f"**{section}**")
     for m in mods:
-        status = "✅ Live" if m["key"] == "dashboard" else f"🚧 Planned — {m['milestone']}"
+        status = "✅ Live" if m.get("implemented") else f"🚧 Planned — {m['milestone']}"
         st.write(f"{m['icon']} {m['title']} — {status}")

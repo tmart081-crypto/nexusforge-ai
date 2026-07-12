@@ -1,6 +1,10 @@
 """Declares the 15 navigable modules: title, icon, page file, section, and
 which milestone implements them. main.py builds st.navigation from this
-list, so adding a module later is a config change, not a nav rewrite."""
+list, so adding a module later is a config change, not a nav rewrite.
+
+Titles/order match the official Capstone Portal Functional Requirements
+(docs/spec.md) exactly — module keys/page filenames are our own internal
+naming and don't need to match."""
 
 MODULES = [
     {
@@ -11,6 +15,7 @@ MODULES = [
         "section": "Home",
         "milestone": "MS-02",
         "default": True,
+        "implemented": True,
     },
     {
         "key": "text_intelligence",
@@ -19,10 +24,11 @@ MODULES = [
         "page": "app/pages/text_intelligence.py",
         "section": "Intelligence",
         "milestone": "MS-04",
+        "implemented": True,
     },
     {
         "key": "image_understanding",
-        "title": "Image Understanding",
+        "title": "Image Intelligence",
         "icon": "🖼️",
         "page": "app/pages/image_understanding.py",
         "section": "Intelligence",
@@ -46,7 +52,7 @@ MODULES = [
     },
     {
         "key": "tokens",
-        "title": "Tokenization Explorer",
+        "title": "Token Explorer",
         "icon": "🔤",
         "page": "app/pages/tokens.py",
         "section": "Optimization",
@@ -54,7 +60,7 @@ MODULES = [
     },
     {
         "key": "embeddings",
-        "title": "Embeddings & Similarity",
+        "title": "Embedding Explorer",
         "icon": "🧭",
         "page": "app/pages/embeddings.py",
         "section": "Optimization",
@@ -78,7 +84,7 @@ MODULES = [
     },
     {
         "key": "visualizations",
-        "title": "Visualizations",
+        "title": "Visualization Dashboard",
         "icon": "📊",
         "page": "app/pages/visualizations.py",
         "section": "Explorers",
@@ -86,7 +92,7 @@ MODULES = [
     },
     {
         "key": "responsible_ai",
-        "title": "Responsible AI",
+        "title": "Responsible AI Dashboard",
         "icon": "🛡️",
         "page": "app/pages/responsible_ai.py",
         "section": "Governance",
@@ -94,7 +100,7 @@ MODULES = [
     },
     {
         "key": "infrastructure",
-        "title": "AI Infrastructure",
+        "title": "AI Infrastructure Explorer",
         "icon": "🖥️",
         "page": "app/pages/infrastructure.py",
         "section": "Governance",
@@ -109,18 +115,18 @@ MODULES = [
         "milestone": "MS-12",
     },
     {
-        "key": "history",
-        "title": "History",
-        "icon": "🕘",
-        "page": "app/pages/history.py",
+        "key": "export_reports",
+        "title": "Export Reports",
+        "icon": "📤",
+        "page": "app/pages/export_reports.py",
         "section": "Ops",
         "milestone": "MS-12",
     },
     {
-        "key": "export_reports",
-        "title": "Export / Reports",
-        "icon": "📤",
-        "page": "app/pages/export_reports.py",
+        "key": "history",
+        "title": "History",
+        "icon": "🕘",
+        "page": "app/pages/history.py",
         "section": "Ops",
         "milestone": "MS-12",
     },
