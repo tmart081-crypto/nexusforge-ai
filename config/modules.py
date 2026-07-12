@@ -33,6 +33,7 @@ MODULES = [
         "page": "app/pages/image_understanding.py",
         "section": "Intelligence",
         "milestone": "MS-05",
+        "implemented": True,
     },
     {
         "key": "document_analyzer",
