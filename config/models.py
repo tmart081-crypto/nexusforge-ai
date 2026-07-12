@@ -7,7 +7,7 @@ model swap is a one-line config change, not a code change across modules.
 MODEL_REGISTRY = {
     # Text Intelligence
     "text_summarization": {"task": "summarization", "model": "facebook/bart-large-cnn"},
-    "text_translation": {"task": "translation_en_to_fr", "model": "Helsinki-NLP/opus-mt-en-fr"},
+    "text_translation": {"task": "translation", "model": "Helsinki-NLP/opus-mt-en-fr"},
     "text_qa": {"task": "question-answering", "model": "deepset/roberta-base-squad2"},
     "text_sentiment": {"task": "sentiment-analysis", "model": "distilbert-base-uncased-finetuned-sst-2-english"},
     "text_ner": {"task": "ner", "model": "dslim/bert-base-NER"},
