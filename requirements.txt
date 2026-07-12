@@ -1,0 +1,24 @@
+# Core UI
+streamlit>=1.36,<2
+
+# Hugging Face stack
+transformers>=4.42,<5
+tokenizers>=0.19,<1
+datasets>=2.20,<3
+sentence-transformers>=3.0,<4
+huggingface-hub>=0.23,<1
+
+# Model backend (CPU by default; device.py auto-detects GPU/MPS)
+torch>=2.3,<3
+
+# Data / viz / ML
+numpy>=1.26,<3
+matplotlib>=3.8,<4
+tensorflow>=2.16,<3
+nltk>=3.8,<4
+
+# Image handling for BLIP
+Pillow>=10.4,<13
+
+# Config
+python-dotenv>=1.0,<2
