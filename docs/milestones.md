@@ -9,8 +9,8 @@ Project Portal. See that file for full acceptance criteria per milestone.
 | 02 | App shell & navigation | 8–12h | ✅ Done |
 | 03 | Core services & model registry | 10–14h | ✅ Done |
 | 04 | Text Intelligence | 14–18h | ✅ Done |
-| 05 | Image Intelligence (BLIP) | 10–14h | ⏳ Next |
-| 06 | Document Analyzer | 8–12h | Planned |
+| 05 | Image Intelligence (BLIP) | 10–14h | ✅ Done |
+| 06 | Document Analyzer | 8–12h | ⏳ Next |
 | 07 | Token Explorer | 8–10h | Planned |
 | 08 | Embedding Explorer & NumPy layer | 10–14h | Planned |
 | 09 | Prompt Optimizer | 8–12h | Planned |
@@ -57,8 +57,29 @@ MS-05 next, on track.
 Environment note: added `tf-keras` — with both TensorFlow and Transformers
 installed, Transformers' TF integration path needs the Keras 2 compat shim.
 
-## Next: MS-05 — Image Intelligence (BLIP)
+## MS-05 — Image Intelligence (BLIP) ✅
 
-Acceptance criteria: supported image formats load correctly; caption + VQA
-return coherent outputs on sample images; errors for corrupt/unsupported
-files are handled. See docs/spec.md for the full Image Feature Matrix.
+- [x] Upload & preview (PNG/JPG/WEBP), corrupt/unsupported files rejected
+      gracefully with a clean error (verified via unit tests + Streamlit
+      `AppTest` simulated upload — no crash, no traceback)
+- [x] BLIP caption generation, with a real per-caption confidence score
+- [x] Detailed description (same model, steered with a prompt + longer
+      generation budget rather than a second model)
+- [x] Visual question answering, with a real confidence score
+- [x] All three verified end-to-end via `AppTest` (upload → click → model
+      call → rendered result) on a synthetic test image — captions and VQA
+      answers were coherent, confidence was sensibly lower on a wrong VQA
+      answer (0.49) than a correct one (0.89)
+
+Implementation note: transformers' `image-to-text` and
+`visual-question-answering` pipelines don't expose a confidence score for
+BLIP (it's generative, not a fixed-vocab classifier), so caption/description/
+VQA all use the underlying model directly via `model.generate(output_scores=
+True)` + `compute_transition_scores()` instead of the generic pipeline
+wrapper, to get a real score rather than a fabricated one.
+
+## Next: MS-06 — Document Analyzer
+
+Acceptance criteria: at least TXT/MD supported (PDF preferred); Q&A answers
+reference document content; large files handled with clear limits. See
+docs/spec.md for details.
