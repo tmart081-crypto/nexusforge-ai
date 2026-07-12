@@ -10,8 +10,8 @@ be reconciled against it once available.
 | MS-01 | Repo scaffold, venv, folders, README skeleton, .gitignore | ✅ Done |
 | MS-02 | App shell + Dashboard + nav to all 15 modules (placeholders OK) | ✅ Done |
 | MS-03 | Config-driven model registry + device manager (CPU/GPU) | ✅ Done |
-| MS-04 | Text Intelligence (full text feature matrix) | ⏳ Next |
-| MS-05 | Image Understanding (BLIP caption/VQA) | Planned |
+| MS-04 | Text Intelligence (full text feature matrix) | ✅ Done |
+| MS-05 | Image Understanding (BLIP caption/VQA) | ⏳ Next |
 | MS-06 | Document Analyzer | Planned |
 | MS-07 | Tokenization Explorer | Planned |
 | MS-08 | Embeddings & Similarity (NumPy, Matplotlib) | Planned |
@@ -32,3 +32,21 @@ be reconciled against it once available.
 - [x] Logging + basic error handling pattern in place
 - [x] Ready to implement Text Intelligence next
 - [ ] Portal checklist exported; milestones tracked (pending access to the full portal)
+
+## MS-04 notes (Text Intelligence)
+
+Nine of ten sub-features (all but summarize/translate/generate/zero-shot, which
+use larger 1GB+ models) were smoke-tested live via CLI and the running app:
+sentiment, NER (with `aggregation_strategy="simple"` to merge subword tokens),
+fill-mask, feature extraction (NumPy mean-pooling over token vectors), and
+keyword extraction (NLTK candidate phrases + sentence-transformers embeddings
++ NumPy cosine similarity ranking — confirmed identical results via CLI and
+the Streamlit UI). Summarize/translate/generate/zero-shot use the same
+`get_pipeline()` pattern and are expected to work the same way; not
+individually downloaded during this session to avoid pulling several extra
+GB of weights. Run them once from the UI to trigger and cache the download.
+
+Environment note: had to add `tf-keras` to `requirements.txt` — with both
+TensorFlow and Transformers installed, Transformers' TF integration path
+requires the Keras 2 compat shim (Keras 3 alone breaks the import chain,
+which also broke plain `import sentence_transformers`).
