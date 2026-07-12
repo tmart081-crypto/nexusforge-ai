@@ -1,31 +1,30 @@
-"""Config-driven model registry.
+"""Config-driven model registry, loaded from config/models.yaml.
 
 Services look up models here by key instead of hardcoding model ids, so a
-model swap is a one-line config change, not a code change across modules.
+model swap is a config-file edit, not a code change across modules
+(MS-03 deliverable, NFR-02: configuration via files, not hardcoded).
 """
 
-MODEL_REGISTRY = {
-    # Text Intelligence
-    "text_summarization": {"task": "summarization", "model": "facebook/bart-large-cnn"},
-    "text_translation": {"task": "translation", "model": "Helsinki-NLP/opus-mt-en-fr"},
-    "text_qa": {"task": "question-answering", "model": "deepset/roberta-base-squad2"},
-    "text_sentiment": {"task": "sentiment-analysis", "model": "distilbert-base-uncased-finetuned-sst-2-english"},
-    "text_ner": {"task": "ner", "model": "dslim/bert-base-NER"},
-    "text_fill_mask": {"task": "fill-mask", "model": "bert-base-uncased"},
-    "text_generation": {"task": "text-generation", "model": "gpt2"},
-    "text_zero_shot": {"task": "zero-shot-classification", "model": "facebook/bart-large-mnli"},
-    "text_feature_extraction": {"task": "feature-extraction", "model": "sentence-transformers/all-MiniLM-L6-v2"},
+from functools import lru_cache
+from pathlib import Path
 
-    # Image Understanding
-    "image_caption": {"task": "image-to-text", "model": "Salesforce/blip-image-captioning-base"},
-    "image_vqa": {"task": "visual-question-answering", "model": "Salesforce/blip-vqa-base"},
+import yaml
 
-    # Embeddings
-    "sentence_embeddings": {"task": "feature-extraction", "model": "sentence-transformers/all-MiniLM-L6-v2"},
-}
+_REGISTRY_PATH = Path(__file__).parent / "models.yaml"
+
+
+@lru_cache(maxsize=1)
+def _load_registry() -> dict:
+    with open(_REGISTRY_PATH) as f:
+        return yaml.safe_load(f)
 
 
 def get_model_config(key: str) -> dict:
-    if key not in MODEL_REGISTRY:
-        raise KeyError(f"No model registered for '{key}'. Known keys: {sorted(MODEL_REGISTRY)}")
-    return MODEL_REGISTRY[key]
+    registry = _load_registry()
+    if key not in registry:
+        raise KeyError(f"No model registered for '{key}'. Known keys: {sorted(registry)}")
+    return registry[key]
+
+
+def all_model_keys() -> list[str]:
+    return sorted(_load_registry())

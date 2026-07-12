@@ -1,5 +1,5 @@
 from config.modules import MODULES
-from config.models import MODEL_REGISTRY, get_model_config
+from config.models import all_model_keys, get_model_config
 
 
 def test_all_modules_have_required_fields():
@@ -18,6 +18,6 @@ def test_exactly_one_default_page():
 
 
 def test_model_registry_lookup():
-    for key in MODEL_REGISTRY:
+    for key in all_model_keys():
         cfg = get_model_config(key)
         assert "task" in cfg and "model" in cfg
