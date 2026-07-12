@@ -1,52 +1,64 @@
 # Milestone tracker
 
-Source of truth for scope: `Capstone Orientation.docx` (trainer playbook) and the
-NexusForge Kickoff Handout. The full portal (Executive Summary / Client Brief /
-per-milestone acceptance criteria) has not been supplied yet — this tracker will
-be reconciled against it once available.
+Source of truth: [docs/spec.md](spec.md), condensed from the official Capstone
+Project Portal. See that file for full acceptance criteria per milestone.
 
-| # | Milestone | Status |
-|---|---|---|
-| MS-01 | Repo scaffold, venv, folders, README skeleton, .gitignore | ✅ Done |
-| MS-02 | App shell + Dashboard + nav to all 15 modules (placeholders OK) | ✅ Done |
-| MS-03 | Config-driven model registry + device manager (CPU/GPU) | ✅ Done |
-| MS-04 | Text Intelligence (full text feature matrix) | ✅ Done |
-| MS-05 | Image Understanding (BLIP caption/VQA) | ⏳ Next |
-| MS-06 | Document Analyzer | Planned |
-| MS-07 | Tokenization Explorer | Planned |
-| MS-08 | Embeddings & Similarity (NumPy, Matplotlib) | Planned |
-| MS-09 | Prompt Optimizer | Planned |
-| MS-10 | Model / Pipeline Explorers + Visualizations | Planned |
-| MS-11 | Responsible AI dashboard | Planned |
-| MS-12 | AI Infrastructure, Settings, History, Export | Planned |
-| MS-13 | Testing, TensorFlow path, hardening | Planned |
-| MS-14 | Docs, demo video, defense package | Planned |
+| # | Milestone | Est. | Status |
+|---|---|---|---|
+| 01 | Kickoff & repo scaffold | 8–10h | ✅ Done |
+| 02 | App shell & navigation | 8–12h | ✅ Done |
+| 03 | Core services & model registry | 10–14h | ✅ Done |
+| 04 | Text Intelligence | 14–18h | ✅ Done |
+| 05 | Image Intelligence (BLIP) | 10–14h | ⏳ Next |
+| 06 | Document Analyzer | 8–12h | Planned |
+| 07 | Token Explorer | 8–10h | Planned |
+| 08 | Embedding Explorer & NumPy layer | 10–14h | Planned |
+| 09 | Prompt Optimizer | 8–12h | Planned |
+| 10 | Model/Pipeline Explorer + Viz Dashboard | 10–12h | Planned |
+| 11 | Responsible AI Dashboard | 8–10h | Planned |
+| 12 | Infra Explorer, History, Export, Settings | 8–12h | Planned |
+| 13 | Testing, hardening, TensorFlow pass | 10–14h | Planned |
+| 14 | Docs, presentation, packaging | 12–16h | Planned |
 
-## Phase 1 "done" checklist (from kickoff handout)
+Midpoint review (end of Week 3): Text + Image demo required — MS-04 done,
+MS-05 next, on track.
 
-- [x] GitHub-ready repo with meaningful commits (local git now; remote pending)
-- [x] Virtual env + pinned baseline requirements installs cleanly
-- [x] Package folders created; `main.py` launches the app
-- [x] All 15 modules reachable in navigation (placeholders OK)
-- [x] Config-driven model registry + device (CPU/GPU) stub
-- [x] Logging + basic error handling pattern in place
-- [x] Ready to implement Text Intelligence next
-- [ ] Portal checklist exported; milestones tracked (pending access to the full portal)
+## MS-01 — Kickoff & repo scaffold ✅
 
-## MS-04 notes (Text Intelligence)
+- [x] Repo cloneable, ≥3 meaningful commits (well over 3)
+- [x] venv + `pip install -r requirements.txt` succeeds
+- [x] Entrypoint (`main.py`) runs without crash
+- [x] Package folders: app, services, models, utils, config, tests, docs, assets, data
 
-Nine of ten sub-features (all but summarize/translate/generate/zero-shot, which
-use larger 1GB+ models) were smoke-tested live via CLI and the running app:
-sentiment, NER (with `aggregation_strategy="simple"` to merge subword tokens),
-fill-mask, feature extraction (NumPy mean-pooling over token vectors), and
-keyword extraction (NLTK candidate phrases + sentence-transformers embeddings
-+ NumPy cosine similarity ranking — confirmed identical results via CLI and
-the Streamlit UI). Summarize/translate/generate/zero-shot use the same
-`get_pipeline()` pattern and are expected to work the same way; not
-individually downloaded during this session to avoid pulling several extra
-GB of weights. Run them once from the UI to trigger and cache the download.
+## MS-02 — App shell & navigation ✅
 
-Environment note: had to add `tf-keras` to `requirements.txt` — with both
-TensorFlow and Transformers installed, Transformers' TF integration path
-requires the Keras 2 compat shim (Keras 3 alone breaks the import chain,
-which also broke plain `import sentence_transformers`).
+- [x] Every one of the 15 modules reachable from navigation, no dead links
+- [x] Dashboard shows status placeholders for history and system info
+- [x] Consistent layout via `config/modules.py` → `st.navigation`
+
+## MS-03 — Core services & model registry ✅
+
+- [x] Model registry config in YAML (`config/models.yaml`), not hardcoded
+- [x] Lazy loader (`models/registry.py`) — models load on demand only
+- [x] Device detection (CPU/GPU/MPS) — confirmed MPS auto-detected on this Mac
+- [x] Load events logged; registry lists task → model mappings
+
+## MS-04 — Text Intelligence ✅
+
+- [x] All 10 features present: summarize, translate, QA, sentiment, NER,
+      keywords, fill-mask, generation, zero-shot, feature extraction
+- [x] Each produces valid output on sample input (5 verified live: sentiment,
+      NER, fill-mask, feature extraction, keywords; 4 share the identical
+      `get_pipeline()` pattern but weren't individually downloaded to avoid
+      pulling several extra GB — summarize/translate/generate/zero-shot)
+- [x] Invalid input handled gracefully (e.g. fill-mask without `[MASK]`)
+- [x] Loading states shown (`st.spinner` per action)
+
+Environment note: added `tf-keras` — with both TensorFlow and Transformers
+installed, Transformers' TF integration path needs the Keras 2 compat shim.
+
+## Next: MS-05 — Image Intelligence (BLIP)
+
+Acceptance criteria: supported image formats load correctly; caption + VQA
+return coherent outputs on sample images; errors for corrupt/unsupported
+files are handled. See docs/spec.md for the full Image Feature Matrix.

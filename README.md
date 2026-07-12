@@ -2,31 +2,33 @@
 
 Enterprise multi-modal AI platform built for client **Aether Dynamics Global** as the final capstone project of the AI & Python Certification (engagement code `NF-CAP-01`).
 
-One application, one navigation shell — text intelligence, image understanding (BLIP), document analysis, prompt optimization, tokenization, embeddings, model/pipeline explorers, visualizations, Responsible AI, and AI infrastructure.
+One application, one navigation shell — text intelligence, image intelligence (BLIP), document analysis, prompt optimization, token/embedding explorers, model/pipeline explorers, a visualization dashboard, Responsible AI, and AI infrastructure.
+
+Full spec: [docs/spec.md](docs/spec.md) (condensed from the official Capstone Project Portal — Executive Summary, Client Brief, functional/non-functional requirements, architecture, all 14 milestones, rubric).
 
 ## Status
 
-Milestone 1 in progress — project scaffold, virtual environment, and app shell. See [docs/milestones.md](docs/milestones.md) for progress against the 14-milestone plan.
+Milestone 4 done (Text Intelligence) — see [docs/milestones.md](docs/milestones.md) for progress against the 14-milestone plan.
 
 ## Modules
 
-| Area | Module |
-|---|---|
-| Home | Dashboard |
-| Text | Text Intelligence |
-| Vision | Image Understanding (BLIP) |
-| Documents | Document Analyzer |
-| Prompts | Prompt Optimizer |
-| Tokens | Tokenization Explorer |
-| Embeddings | Embeddings & Similarity |
-| Explorers | Model Explorer |
-| Explorers | Pipeline Explorer |
-| Explorers | Visualizations |
-| Governance | Responsible AI |
-| Infra | AI Infrastructure |
-| Ops | Settings |
-| Ops | History |
-| Ops | Export / Reports |
+| # | Area | Module |
+|---|---|---|
+| 01 | Home | Dashboard |
+| 02 | Intelligence | Text Intelligence |
+| 03 | Intelligence | Image Intelligence (BLIP) |
+| 04 | Intelligence | Document Analyzer |
+| 05 | Optimization | Prompt Optimizer |
+| 06 | Optimization | Token Explorer |
+| 07 | Optimization | Embedding Explorer |
+| 08 | Explorers | Model Explorer |
+| 09 | Explorers | Pipeline Explorer |
+| 10 | Explorers | Visualization Dashboard |
+| 11 | Governance | Responsible AI Dashboard |
+| 12 | Governance | AI Infrastructure Explorer |
+| 13 | Ops | Settings |
+| 14 | Ops | Export Reports |
+| 15 | Ops | History |
 
 ## Tech stack
 
@@ -54,10 +56,11 @@ nexusforge-ai/
 ├── services/            # Business logic, orchestrates models per module
 ├── models/              # Model loaders / registry wrappers
 ├── utils/               # Shared helpers (NumPy, viz, logging)
-├── config/              # Model registry, device manager, settings
+├── config/              # Model registry (YAML), device manager, settings
 ├── data/                # Sample text/images for demos (gitignored uploads)
 ├── tests/                # Unit tests
-├── docs/                # Architecture diagram, tech docs, user manual
+├── docs/                # Spec summary, architecture diagram, tech docs, user manual
+├── assets/              # Diagrams, presentation slides
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
