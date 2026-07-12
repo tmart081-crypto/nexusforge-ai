@@ -1,0 +1,41 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Environment / secrets
+.env
+.env.*
+*.key
+
+# Model caches / downloads
+.cache/
+models/downloads/
+*.pt
+*.bin
+*.h5
+*.safetensors
+
+# Data artifacts
+data/uploads/
+data/outputs/
+
+# Logs
+logs/
+*.log
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Streamlit
+.streamlit/secrets.toml
